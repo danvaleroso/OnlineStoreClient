@@ -8,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'web';
+  products: any[] = [];
+
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get('https://localhost:5001/api/products').subscribe({
-      next: response => console.log(response),
+    this.http.get('https://localhost:5001/api/products?pageSize=50').subscribe({
+      next: (response: any) => this.products = response.data,
       error: err => console.log(err),
       complete: () => {
         console.log("request completed");
